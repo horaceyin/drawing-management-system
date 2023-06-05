@@ -1,0 +1,13 @@
+getDrawingByAjax:async(req, res, next) =>{
+        const searchDrawingName = req.body.searchDrawingName.trim().replace('(', '\\(').replace(')', '\\)');
+        const drawingsWithName = await Drawing.find({inputFileName: new RegExp(searchDrawingName, 'i')}, null, {sort:{inputFileName:1}});
+        drawingsWithName.unshift(null);
+
+        if(drawingsWithName.length === 1){
+            drawingsWithName[0] = false;
+        }else{
+            drawingsWithName[0] = true;
+        }
+
+        res.send(drawingsWithName);
+    },

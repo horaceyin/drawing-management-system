@@ -1,0 +1,175 @@
+<link rel="stylesheet" href="/stylesheets/dms.css">
+<!-- Custom Sidebar Meun CSS -->
+<link rel="stylesheet" href="/stylesheets/jquery.mCustomScrollbar.min.css">
+<!-- jQuery Custom Sidebar Meun-->
+<script src="/javascripts/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/javascripts/dms.js"></script>
+
+<!--export table as excel file-->
+<script lang="javascript" src="/javascripts/FileSaver.min.js"></script>
+
+<!--multiple-selection and data table-->
+<script src="/javascripts/popper.min.js"></script>
+<script src="/javascripts/tail.select-full.min.js"></script>
+<link rel="stylesheet" href="/stylesheets/tail.select/tail.select-info.css">
+
+<link rel="stylesheet" href="/stylesheets/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="/stylesheets/rowGroup.bootstrap4.min.css">
+
+<script src="/javascripts/jquery.dataTables.min.js"></script>
+<script src="/javascripts/dataTables.bootstrap4.min.js"></script>
+<script src="/javascripts/dataTables.rowGroup.min.js"></script>
+
+
+<!--export excel 2-->
+<script src="/javascripts/dataTables.buttons.min.js"></script>
+<script src="/javascripts/jszip.min.js"></script>
+<script src="/javascripts/buttons.html5.min.js"></script>
+<script src="/javascripts/dataTables.select.min.js"></script>
+<link rel="stylesheet" href="/stylesheets/select.dataTables.min.css">
+
+
+
+
+<div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div id="dismiss">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+
+            <div class="sidebar-header">
+                <h3>Thales</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p>Line Abbreviation</p>
+                {{#each items}}
+                  <li>
+                      <a href="#{{this.line}}" data-toggle="collapse" aria-expanded="false">{{this.line}}</a>
+                      <ul class="collapse list-unstyled" id="{{this.line}}">
+                        {{#each this.loc}}
+                            <li id="{{this.stationName}}">{{this.stationName}}</li>
+                        {{/each}}
+                      </ul>
+                  </li>
+                {{/each}}
+            </ul>
+
+            {{!-- <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+                </li>
+                <li>
+                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+                </li>
+            </ul> --}}
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav id="content-navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <div class="container-fluid" style="margin-left: 5%; width: 70%;">
+                      <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span>Menu</span>
+                      </button>
+
+                      <a class="btn btn-info" style="margin-left: 2%;" href="/upload-drawing"><i class="fa fa-plus"></i> Create New</a>
+                      <a class="btn btn-info" style="margin-left: 2%; color: white; display:none; cursor: pointer;" id="createExcelButton"><i class="fas fa-file-excel"></i> Export to Excel</a>
+                      <a class="btn btn-info" style="margin-left: 2%; color: white; display:none; cursor: pointer;" id="selectAll"><i class="fas fa-check-circle"></i> Select All</a>
+                      <a class="btn btn-info" style="margin-left: 2%; color: white; display:none; cursor: pointer;" id="deselectAll"><i class="fas fa-times-circle"></i> Deselect All</a>
+                    </div>
+
+                    <div class="form-inline" style="margin-left: 2%; width: 40%;">
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
+                          <label class="custom-control-label" for="customCheck" data-toggle="tooltip" data-placement="left" title="Click here to get the latest version of drawing."></label>
+                        </div>
+                        <input class="form-control mr-sm-2" style="width: 65%; border: 1px solid #4971b3; background-color: rgb(232, 240, 254);" name="searchDrawingName" id="searchDrawing" type="search" placeholder="Drawing Name" aria-label="Search" autocomplete="off" required>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchButton">Search</button>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="card-group" style="height: auto; width: auto;">
+              <div class="card" style="background: #f0eaba;">
+                <div class="card-body" id="DmsLineSelectCardBody" style="background: #f0eaba; margin: 1rem 1rem;">
+                  <h5 class="card-title lead">Line:</h5>
+                  <div class="line-move-container"></div><br>
+                  <select multiple id="DmsLineSelect">
+                    {{#each items}}
+                      <option value="{{this.line}}">{{this.line}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+              </div>
+              <div class="card" style="background: #f0eaba;">
+                <div class="card-body" id="DmsStationSelectCardBody" style="background: #f0eaba; margin: 1rem 1rem;">
+                  <h5 class="card-title lead">Station:</h5>
+                  <div class="station-move-container"></div><br>
+                  <select multiple id="DmsStationSelect" disabled>
+
+                  </select>
+                </div>
+              </div>
+              <div class="card" style="background: #f0eaba;">
+                <div class="card-body" id="DmsCategorySelectCardBody" style="background: #f0eaba; margin: 1rem 1rem;">
+                  <h5 class="card-title lead">Category:</h5>
+                  <div class="category-move-container"></div><br>
+                  <select multiple id="DmsCategorySelect" disabled ></select>
+                </div>
+              </div>
+            </div>
+            
+            <div class="line"></div>
+
+            <!-- Ajax testing by Andrew -->
+            {{!-- <div>
+                <label>String for searching</label>
+                <input type="text" id="searchString"/>
+                <button id="aTest">Run</button>
+
+            </div> --}}
+            {{!-- <input type="text" class="form-control form-rounded" style="display: none;" placeholder="Search..." id="haha">
+            <div id="mTable"></div> --}}
+    
+            <table class="table table-striped table-dark" id="drawingTable" style="display: none;">
+              <thead>
+                <tr>
+                  <th scope="col">Drawing Title</th>
+                  <th scope="col">Drawing number</th>
+                  <th scope="col">Version</th>
+                  <th scope="col">Draftsman</th>
+                  <th scope="col">Approved Date</th>
+                  <th scope="col">Date Modified</th>
+                  {{!-- <th scope="col">Status</th> --}}
+                  <th scope="col">Group</th>
+                  <th scope="col">Download</th>
+                </tr>
+              </thead>
+              <tbody id="drawingTableBody">
+                  
+              </tbody>
+              <tfoot>
+                  <tr>
+                    <th scope="col">Drawing Name</th>
+                    <th scope="col">Drawing number</th>
+                    <th scope="col">Version</th>
+                    <th scope="col">Draftsman</th>
+                    <th scope="col">Approved Date</th>
+                    <th scope="col">Date Modified</th>
+                    {{!-- <th scope="col">Status</th> --}}
+                    <th scope="col" id="tableGrouping">Group</th>
+                    <th scope="col" id="tableDownload">Download</th>
+                </tr>
+              </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <div class="overlay"></div>
+

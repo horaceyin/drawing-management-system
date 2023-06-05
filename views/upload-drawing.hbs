@@ -1,0 +1,81 @@
+<link rel="stylesheet" href="/stylesheets/upload-drawing.css">
+<link rel="stylesheet" href="/stylesheets/bootstrap-datepicker.css">
+<script src="/javascripts/bootstrap-datepicker.js"></script>
+<script src="/javascripts/moment.min.js"></script>
+
+<div class="form-container">
+  <div id="alertMessage" class="alert alert-success" role="alert" style="display: none;"></div>
+  <div class="container-fluid">
+    <form action="/upload-drawing" method="POST" enctype="multipart/form-data" id="fileUploadForm" name="fileUploadForm">
+      <div class="form-group">
+        <label class="badge badge-secondary" for="inputFileName">Drawing Title</label>
+        <input type="text" class="form-control" id="inputFileName" name="inputFileName" aria-describedby="emailHelp" placeholder="Drawing Title" autocomplete="off" required>
+      </div>
+      <div class="form-group">
+        <label class="badge badge-secondary" for="drawingNumber">Drawing Number</label>
+        <input type="text" class="form-control" id="drawingNumber" name="drawingNumber" placeholder="Drawing number" autocomplete="off" required>
+      </div>
+      <div class="form-group">
+        <label class="badge badge-secondary" for="drawingVersion">Version</label>
+        <input type="text" class="form-control" id="drawingVersion" name="drawingVersion" placeholder="Version" autocomplete="off" required>
+      </div>
+      <div class="form-group">
+        <label class="badge badge-secondary" for="draftsman">Draftsman</label>
+        <input type="text" class="form-control" id="draftsman" name="draftsman" placeholder="Draftsman" autocomplete="off" required>
+      </div>
+      <div class="form-group">
+        <label class="badge badge-secondary">Upload PDF file (.pdf only):</label>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="customFile_PDF" name="uploadedFile_PDF" accept=".pdf">
+          <label class="custom-file-label" for="customFile_PDF" id="myFileName_PDF">Choose PDF file</label>
+        </div>
+        <br>
+        <label class="badge badge-secondary">Upload CAD file (.dwg or .dgn only):</label>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="customFile_CAD" name="uploadedFile_CAD" accept=".dwg, .dgn">
+          <label class="custom-file-label" for="customFile_CAD" id="myFileName_CAD">Choose CAD file</label>
+        </div>
+        <br>
+      </div>
+      <div class="form-group">
+        <label class="badge badge-secondary" for="draftsman">Approved Date:</label>
+        <input type="text" class="form-control" id="approvedDate" name="approvedDate" placeholder="DD/MM/YYYY" autocomplete="off" required>
+        {{!-- <div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy">
+          <input class="form-control" name="approvedDate" id="approvedDate" type="text" readonly required>
+          <div class="input-group-append">
+            <span class="input-group-addon"><i class="far fa-calendar-alt" ></i></span>
+          </div>
+        </div> --}}
+      </div>
+      <div class="form-inline">
+        <label for="SelectLineForDrawing" class="mr-sm-2 mb-2">1. Select the Line in which the drawing is uploaded.</label>
+        <select class="form-control" name="SelectLineForDrawing" id="SelectLineForDrawing" required>
+          <option value="">--Select the line--</option>
+          {{# each locationItems }}
+            <option value="{{this.lineValue}}"> {{ this.lineValue }} </option>
+          {{/each}}
+        </select>
+      </div>
+
+      <div class="form-inline">
+        <label for="SelectStationForDrawing" class="mr-sm-2 mb-2">2. Select the Station in which the drawing is uploaded.</label>
+        <select class="form-control" name="SelectStationForDrawing" id="SelectStationForDrawing" required disabled>
+          <option value="">----------------</option>
+        </select>
+      </div>
+
+      <div class="form-inline">
+        <label for="SelectCategoryForDrawing" class="mr-sm-2 mb-2">3. Select the category for this drawing.</label>
+        <select class="form-control" name="SelectCategoryForDrawing" id="SelectCategoryForDrawing" required disabled>
+          <option value="">----------------</option>
+        </select>
+      </div>
+
+      <button id="uploadButton" type="submit" class="btn btn-outline-secondary">Submit</button>
+    </form>
+  </div>
+</div>
+
+<script src="/javascripts/upload-drawing.js"></script>
+
+

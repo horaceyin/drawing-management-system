@@ -1,0 +1,212 @@
+<script src="/javascripts/admin-page.js"></script>
+
+<label for="Line" class="mr-sm-2 mb-2" style="color: red">&nbsp;&nbsp;&nbsp;<strong>Note: </strong>Line and location fields that can contain only <strong>three capital letters</strong>. (no numbers or special characters)</label>
+<div class="container-fluid">
+    <div id="createLineAlert" class="alert alert-success" role="alert" style="display: none;"></div>
+    <h6><b>Create the line abbreviation</b></h6>
+    <div>
+        <label for="InputLine" class="mr-sm-2 mb-2">Line</label>
+        <input type="text" class="form-control mr-sm-2 mb-2" placeholder="Line abbreviation" style="width: 15%;" id="InputLine" name="InputLine" autocomplete="off" required pattern="[A-Z]{3}">
+        <label for="InputLineName" class="mr-sm-2 mb-2">Name</label>
+        <input type="text" class="form-control mr-sm-2 mb-2" placeholder="Name of the line" style="width: 15%;" id="InputLineName" name="InputLineName" autocomplete="off" required>
+        <br>
+        <button type="submit" id="createLineButton" class="btn btn-primary mb-2">Create</button>
+    </div>
+</div><hr>
+
+<div class="container-fluid">
+    <div id="createStationAlert" class="alert alert-success" role="alert" style="display: none;"></div>
+    <h6><b>Create the station abbreviation. E.g stations and auxiliary building</b></h6>
+    <!--<form action="/admin/createLocation" name="createLocationForm" onsubmit="return validateCreateLocationForm()" method="POST">-->
+    <div>
+        <div class="form-inline">
+        <label for="SelectLine" class="mr-sm-2">1. Select the line</label>
+        <select class="form-control" name="SelectLine" id="SelectLine" required>
+            <option value="">--Select the line--</option>
+            {{# each lineArray }}
+                <option value="{{this.lineValue}}"> {{ this.lineValue }} </option>
+            {{/each}}
+        </select>
+        </div>
+        <div class="form-inline">
+        <label for="InputLocation" class="mr-sm-2 mb-2">2. Input the station</label>
+        <input type="text" class="form-control mr-sm-2 mb-2" placeholder="Station name" style="width: 20%;" id="InputLocation" name="InputLocation" autocomplete="off" required pattern="[A-Z]{3}" disabled>
+        </div>
+        <button id="createStationButton" type="submit" class="btn btn-primary mb-2">Create</button>
+    </div>
+</div>
+<hr>
+
+<div class="container-fluid">
+    <div id="createCategoryAlert" class="alert alert-success" role="alert" style="display: none;"></div>
+    <h6><b>Create a category for the station.</b></h6>
+    <div>
+        <div class="form-inline">
+        <label for="SelectLineForCategory" class="mr-sm-2 mb-2">1. Select the line</label>
+        <select class="form-control" name="SelectLineForCategory" id="SelectLineForCategory" required>
+            <option value="">--Select the line--</option>
+            {{# each lineArray }}
+                <option value="{{this.lineValue}}"> {{ this.lineValue }} </option>
+            {{/each}}
+        </select>
+        </div>
+    
+
+        <div class="form-inline">
+        <label for="SelectLocationForCategory" class="mr-sm-2 mb-2">2. Select the station for category</label>
+        <select class="form-control" name="SelectLocationForCategory" id="SelectLocationForCategory" required disabled>
+            <option value="">----------------</option>
+        </select>
+        </div>
+
+        <div class="form-inline">
+        <label for="InputCategory" class="mr-sm-2 mb-2">3. Input a category for above station</label>
+        <input type="text" class="form-control mr-sm-2 mb-2" placeholder="Category name" style="width: 30%;" id="InputCategory" name="InputCategory" autocomplete="off" required disabled>
+        </div>
+        <button id="createCategoryButton" type="submit" class="btn btn-primary mb-2">Create</button>
+    </div>
+</div><hr>
+
+<div class="container-fluid">
+    <div id="deleteLineAlert" class="alert alert-success" role="alert" style="display: none;"></div>
+    <h6><b>Delete the line abbreviation</b></h6>
+    <div class="form-inline">
+        <label for="deleteLineSelect" class="mr-sm-2">Select the line</label>
+        <select class="form-control" name="deleteLineSelect" id="deleteLineSelect">
+            <option value="">--Select the line--</option>
+            {{# each lineArray }}
+                <option value="{{this.lineValue}}"> {{ this.lineValue }} </option>
+            {{/each}}
+        </select>
+    </div><br>
+    <button type="submit" id="deleteLineButton" class="btn btn-primary mb-2" >Delete</button>
+</div><hr>
+
+<div class="container-fluid">
+    <div id="deleteStationAlert" class="alert alert-success" role="alert" style="display: none;"></div>
+    <h6><b>Delete the station abbreviation</b></h6>
+    <!--<form name="delLocFrom" action="/admin/deleteLocation" method="post" onsubmit="return validateDeleteLocForm()" >-->
+    <div>
+        <div class="form-inline">
+            <label for="lineSelectForDeleteStation" class="mr-sm-2">1. Select the line</label>
+            <select class="form-control" name="lineSelectForDeleteStation" id="lineSelectForDeleteStation">
+                <option value="">--Select the line--</option>
+                {{# each lineArray }}
+                    <option value="{{this.lineValue}}"> {{ this.lineValue }} </option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-inline">
+        <label for="stationSelectForDeleteStation" class="mr-sm-2 mb-2">2. Select the station</label>
+        <select class="form-control" name="stationSelectForDeleteStation" id="stationSelectForDeleteStation" required disabled>
+            <option value="">----------------</option>
+        </select>
+        </div><br>
+        <button type="submit" id="deleteStationButton" class="btn btn-primary mb-2" >Delete</button>
+    </div>
+</div><hr>
+
+<div class="container-fluid">
+    <div id="deleteCategoryAlert" class="alert alert-success" role="alert" style="display: none;"></div>
+    <h6><b>Delete a category</b></h6>
+    <!--<form name="delLocFrom" action="/admin/deleteLocation" method="post" onsubmit="return validateDeleteLocForm()" >-->
+    <div>
+        <div class="form-inline">
+            <label for="lineSelectForDeleteCategory" class="mr-sm-2">1. Select the line</label>
+            <select class="form-control" name="lineSelectForDeleteCategory" id="lineSelectForDeleteCategory">
+                <option value="">--Select the line--</option>
+                {{# each lineArray }}
+                    <option value="{{this.lineValue}}"> {{ this.lineValue }} </option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-inline">
+        <label for="stationSelectForDeleteCategory" class="mr-sm-2 mb-2">2. Select the station</label>
+        <select class="form-control" name="stationSelectForDeleteCategory" id="stationSelectForDeleteCategory" required disabled>
+            <option value="">----------------</option>
+        </select>
+        </div>
+        <div class="form-inline">
+        <label for="categorySelectForDeleteCategory" class="mr-sm-2 mb-2">3. Select the category</label>
+        <select class="form-control" name="categorySelectForDeleteCategory" id="categorySelectForDeleteCategory" required disabled>
+            <option value="">----------------</option>
+        </select>
+        </div><br>
+        <button type="submit" id="deleteCategoryButton" class="btn btn-primary mb-2" >Delete</button>
+    </div>
+</div><hr>
+
+<div class="container-fluid">
+    <div id="editDrawingAlert" class="alert alert-success" role="alert" style="display: none;">
+        
+    </div>
+    <h6><b>Edit the drawing title</b></h6>
+    <!--<form name="delLocFrom" action="/admin/deleteLocation" method="post" onsubmit="return validateDeleteLocForm()" >-->
+    <div class="form-inline">
+        <label for="drawingNumber" class="mr-sm-2">1. Drawing number</label>
+        &nbsp;<input type="text" class="form-control mr-sm-2 mb-2" placeholder="Drawing number" style="width: 40%;" id="drawingNumber" name="drawingNumber" autocomplete="off" required>
+    </div>
+    <div class="form-inline">
+        <label for="drawingVersion" class="mr-sm-2">2. Drawing version</label>
+        &nbsp;&nbsp;<input type="text" class="form-control mr-sm-2 mb-2" placeholder="Drawing version" style="width: 40%;" id="drawingVersion" name="drawingVersion" autocomplete="off" required>
+    </div>
+    <div class="form-inline">
+        <label for="newDrawingTitle" class="mr-sm-2 mb-2">3. New drawing title</label>
+        <input type="text" class="form-control mr-sm-2 mb-2" placeholder="New drawing title" style="width: 40%;" id="newDrawingTitle" name="newDrawingTitle" autocomplete="off" required>
+    </div>
+    <button id="editButton" type="submit" class="btn btn-primary mb-2" >Edit</button>
+</div><hr>
+
+{{!-- <a href="/admin/get-lines">&nbsp;LOAD DATA</a>
+<br> --}}
+<table id="line-table">
+    <thead>
+        <tr>
+            <th>Line</th>
+            <th>Name</th>
+            <th>Station</th>
+        </tr>
+    </thead>
+    <tbody id="lineStationTableBody">
+        {{!-- {{# each items }}
+            <tr>
+                <td>{{this.line}}</td>
+                <td>{{this.name}}</td>
+                <td>{{# each this.loc}}{{this.stationName}}&nbsp;&nbsp;&nbsp;&nbsp;{{/each}}</td>
+            </tr>
+        {{/each}} --}}
+    </tbody>
+</table>
+
+
+
+
+
+<script>
+
+    function validateCreateLineForm() {
+        var line = document.forms["createLineForm"]["line"].value;
+        var name = document.forms["createLineForm"]["name"].value;
+        if (line == "" || name == "") {
+            alert("All fields are required.");
+            return false;
+        }
+    }
+
+    function validateCreateLocationForm() {
+        var loc = document.forms["createLocationForm"]["loc"].value;
+        if (loc == "") {
+            alert("Location are required.");
+            return false;
+        }
+    }
+
+    function validateDeleteLocForm() {
+        var delLoc = document.forms["delLocFrom"]["location"].value;
+        if (delLoc == "") {
+            alert("Location are required.");
+            return false;
+        }
+    }
+</script>
+

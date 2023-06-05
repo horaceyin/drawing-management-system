@@ -1,0 +1,6 @@
+{
+  "env": {
+    "MONGODB_PWD":"dms"
+  }
+}
+

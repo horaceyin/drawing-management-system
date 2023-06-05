@@ -1,0 +1,31 @@
+.form-container{
+    margin: 1% 25%;
+    padding: 0px 20px 20px 20px;
+}
+
+.badge-secondary{
+    font-size: 16px;
+}
+
+.btn-outline-secondary{
+    margin: 5% 40%;
+    font-size: 24px;
+}
+
+div{
+    padding-top: 5px;
+}
+
+#approvedDate{
+    width:280px;
+    padding-top: 0px;
+}
+/* #datepicker > .input-group-append{
+    cursor: pointer;
+}
+
+.input-group-append{
+    padding: 5px;
+    font-size: larger;
+    margin: auto;
+} */
